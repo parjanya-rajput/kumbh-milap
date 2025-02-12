@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:kumbh_milap/app_theme.dart';
 import 'package:provider/provider.dart';
 import '../../providers/profile_provider.dart';
+import '../components/discover_header';
 import '../components/error_box.dart';
+import '../components/name_component';
 import '../components/profile_additional_info.dart';
-import '../components/profile_header.dart';
 import '../components/profile_info_section.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -36,12 +38,14 @@ class ProfilePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ProfileHeader(
+                  ProfileName(
+                    name: profile.name ?? "Unkknown",
+                    age: profile.age,
+                  ),
+                  DiscoverHeader(
                     profilePhoto: profile.profilePictureUrl ??
-                        "https://fastly.picsum.photos/id/1075/200/200.jpg?hmac=a9PcCsXBonPZ7LCLyWX6dHM1XGbcojML0qhnq-Ee4a4",
-                    name: AppLocalizations.of(context)!
-                        .welcomeUser(profile.name ?? "Unknown"),
-                    isMatched: true,
+                        'https://www.piclumen.com/wp-content/uploads/2024/10/piclumen-upscale-after.webp',
+                    location: profile.home ?? "N/A",
                   ),
                   const SizedBox(height: 20),
                   Padding(
@@ -52,12 +56,8 @@ class ProfilePage extends StatelessWidget {
                         InfoSection(
                           title: AppLocalizations.of(context)!.personalInfo,
                           information: {
-                            AppLocalizations.of(context)!.age:
-                                profile.age?.toString(),
                             AppLocalizations.of(context)!.gender:
                                 profile.gender,
-                            AppLocalizations.of(context)!.location:
-                                profile.home,
                             AppLocalizations.of(context)!.occupation:
                                 profile.occupation,
                             AppLocalizations.of(context)!.education:
@@ -88,12 +88,17 @@ class ProfilePage extends StatelessWidget {
                         const SizedBox(height: 30),
                         Center(
                           child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: AppTheme.primaryColor),
                             onPressed: () async {
                               await profileProvider.logout();
                               Navigator.of(context)
                                   .pushReplacementNamed('/login');
                             },
-                            child: Text(AppLocalizations.of(context)!.logout),
+                            child: Text(
+                              AppLocalizations.of(context)!.logout,
+                              style: Theme.of(context).textTheme.labelLarge,
+                            ),
                           ),
                         ),
                         const SizedBox(height: 30),

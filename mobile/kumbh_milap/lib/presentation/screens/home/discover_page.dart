@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:kumbh_milap/presentation/screens/components/name_component';
 import 'package:provider/provider.dart';
 import 'package:kumbh_milap/presentation/providers/discover_provider.dart';
+import '../components/discover_header';
 import '../components/profile_additional_info.dart';
 import '../components/profile_button.dart';
-import '../components/profile_header.dart';
 import '../components/profile_info_section.dart';
 import "package:flutter_gen/gen_l10n/app_localizations.dart";
 
@@ -36,20 +37,20 @@ class DiscoverPage extends StatelessWidget {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      ProfileHeader(
+                      ProfileName(
+                        name: profile.name ?? "Unkknown",
+                        age: profile.age,
+                      ),
+                      DiscoverHeader(
                         profilePhoto: profile.profilePictureUrl ??
-                            'https://pixabay.com/vectors/blank-profile-picture-mystery-man-973460/',
-                        name: profile.name ?? 'Unknown',
-                        isMatched: false,
+                            'https://www.piclumen.com/wp-content/uploads/2024/10/piclumen-upscale-after.webp',
+                        location: profile.home ?? "N/A",
                       ),
                       const SizedBox(height: 20),
                       InfoSection(
                         title: AppLocalizations.of(context)!.personalInfo,
                         information: {
-                          AppLocalizations.of(context)!.age:
-                              profile.age?.toString(),
                           AppLocalizations.of(context)!.gender: profile.gender,
-                          AppLocalizations.of(context)!.location: profile.home,
                           AppLocalizations.of(context)!.occupation:
                               profile.occupation,
                           AppLocalizations.of(context)!.education:

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:kumbh_milap/core/model/profile_model.dart';
+import '../components/discover_header';
+import '../components/name_component';
 import '../components/profile_additional_info.dart';
-import '../components/profile_header.dart';
 import '../components/profile_info_section.dart';
 
 class DetailPage extends StatelessWidget {
@@ -15,10 +16,12 @@ class DetailPage extends StatelessWidget {
       body: SingleChildScrollView(
         child: Column(
           children: [
-            ProfileHeader(
+            ProfileName(
+                name: profileModel.name ?? 'Unknown', age: profileModel.age),
+            DiscoverHeader(
               profilePhoto:
                   profileModel.profilePictureUrl ?? '/placeholder.jpg',
-              name: profileModel.name ?? 'Unknown',
+              location: profileModel.home ?? 'N/A',
             ),
             const SizedBox(height: 20),
             Padding(

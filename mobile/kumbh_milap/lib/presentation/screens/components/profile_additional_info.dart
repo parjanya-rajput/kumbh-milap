@@ -25,41 +25,37 @@ class InterestsSection extends StatelessWidget {
     }
 
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        Text(
-          '${AppLocalizations.of(context)!.interests} & ${AppLocalizations.of(context)!.prefLanguage}',
-          style: Theme.of(context)
-              .textTheme
-              .displayMedium
-              ?.copyWith(color: AppTheme.secondaryColor),
-        ),
-        const SizedBox(height: 12),
-        Card(
-          elevation: 2,
-          color: AppTheme.lightGray,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(12),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (filteredInterests.isNotEmpty)
-                  _buildChipSection(
-                      context,
-                      AppLocalizations.of(context)!.interests,
-                      filteredInterests),
-                if (filteredInterests.isNotEmpty &&
-                    filteredLanguages.isNotEmpty)
-                  const SizedBox(height: 16),
-                if (filteredLanguages.isNotEmpty)
-                  _buildChipSection(
-                      context,
-                      AppLocalizations.of(context)!.langauge,
-                      filteredLanguages),
-              ],
+        Container(
+          width: double.infinity,
+          constraints: BoxConstraints(minWidth: double.infinity),
+          child: Card(
+            elevation: 2,
+            color: Theme.of(context).secondaryHeaderColor,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  if (filteredInterests.isNotEmpty)
+                    _buildChipSection(
+                        context,
+                        AppLocalizations.of(context)!.interests,
+                        filteredInterests),
+                  if (filteredInterests.isNotEmpty &&
+                      filteredLanguages.isNotEmpty)
+                    const SizedBox(height: 16),
+                  if (filteredLanguages.isNotEmpty)
+                    _buildChipSection(
+                        context,
+                        AppLocalizations.of(context)!.langauge,
+                        filteredLanguages),
+                ],
+              ),
             ),
           ),
         ),
@@ -76,13 +72,13 @@ class InterestsSection extends StatelessWidget {
           title,
           style: Theme.of(context)
               .textTheme
-              .bodyLarge
-              ?.copyWith(color: AppTheme.darkGray),
+              .labelLarge
+              ?.copyWith(color: AppTheme.black),
         ),
         const SizedBox(height: 8),
         Wrap(
-          spacing: 8,
-          runSpacing: 8,
+          spacing: 15,
+          runSpacing: 10,
           children: items.map((item) => _buildChip(context, item)).toList(),
         ),
       ],
@@ -91,15 +87,9 @@ class InterestsSection extends StatelessWidget {
 
   Widget _buildChip(BuildContext context, String label) {
     return Chip(
-      label: Text(
-        label,
-        style: Theme.of(context)
-            .textTheme
-            .bodyMedium
-            ?.copyWith(color: AppTheme.white),
-      ),
+      label: Text(label, style: Theme.of(context).textTheme.labelLarge),
       backgroundColor: AppTheme.secondaryColor,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 15),
     );
   }
 }

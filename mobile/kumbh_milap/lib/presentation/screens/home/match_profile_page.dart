@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:kumbh_milap/app_theme.dart';
 import 'package:kumbh_milap/core/model/profile_model.dart';
 import 'package:kumbh_milap/presentation/providers/match_provider.dart';
 import 'package:kumbh_milap/presentation/screens/home/detail_page.dart';
@@ -11,10 +12,10 @@ class MatchProfilePage extends StatefulWidget {
 }
 
 class _MatchProfilePageState extends State<MatchProfilePage> {
-  
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(create: (_) => MatchProvider()..getMatches(), 
+    return ChangeNotifierProvider(
+      create: (_) => MatchProvider()..getMatches(),
       child: Builder(builder: (context) {
         final matchProvider = Provider.of<MatchProvider>(context);
         switch (matchProvider.matchState) {
@@ -40,7 +41,6 @@ class _MatchProfilePageState extends State<MatchProfilePage> {
   }
 }
 
-
 class Item extends StatelessWidget {
   final ProfileModel profileModel;
 
@@ -48,30 +48,36 @@ class Item extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   final Uri _url = Uri.parse("tel://${profileModel.phone}");
-    return Card(child: ListTile(
-            onTap: () => {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
+    final Uri _url = Uri.parse("tel://${profileModel.phone}");
+    return Card(
+        color: Theme.of(context).secondaryHeaderColor,
+        child: ListTile(
+          onTap: () => {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
                 builder: (context) => DetailPage(profileModel: profileModel),
-                ),
-              )
-            },
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage("https://picsum.photos/200"),
-            ),
-            title: Text(
-              profileModel.name ?? "temporary name",
-              style: TextStyle(color: Colors.grey, fontWeight: FontWeight.bold),
-            ),
-            subtitle: Text(
-              profileModel.home ?? "",
-              style: TextStyle(color: Colors.grey),
-              overflow: TextOverflow.ellipsis,
-            ),
-            trailing: IconButton(onPressed: () => launchUrl(_url), icon: Icon(Icons.phone)),
-          ));
+              ),
+            )
+          },
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(
+                profileModel.profilePictureUrl ?? "https://picsum.photos/200"),
+          ),
+          title: Text(
+            profileModel.name ?? "Unknown",
+            style: Theme.of(context)
+                .textTheme
+                .labelLarge
+                ?.copyWith(color: AppTheme.black),
+          ),
+          subtitle: Text(
+            profileModel.home ?? "",
+            style: Theme.of(context).textTheme.labelMedium,
+            overflow: TextOverflow.ellipsis,
+          ),
+          trailing: IconButton(
+              onPressed: () => launchUrl(_url), icon: Icon(Icons.phone)),
+        ));
   }
 }
-

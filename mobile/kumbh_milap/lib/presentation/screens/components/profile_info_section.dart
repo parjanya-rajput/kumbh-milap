@@ -25,17 +25,9 @@ class InfoSection extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          title,
-          style: Theme.of(context)
-              .textTheme
-              .displayMedium
-              ?.copyWith(color: AppTheme.secondaryColor),
-        ),
-        const SizedBox(height: 12),
         Card(
           elevation: 2,
-          color: AppTheme.lightGray,
+          color: Theme.of(context).secondaryHeaderColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(12),
           ),
@@ -61,20 +53,19 @@ class InfoSection extends StatelessWidget {
         children: [
           Expanded(
             flex: 2,
-            child: Text(
-              label,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyLarge
-                  ?.copyWith(color: AppTheme.darkGray),
-            ),
+            child: Text(label,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge
+                    ?.copyWith(color: AppTheme.black)),
           ),
           Expanded(
             flex: 3,
-            child: Text(
-              value,
-              style: Theme.of(context).textTheme.bodyLarge,
-            ),
+            child: Text(value,
+                style: Theme.of(context)
+                    .textTheme
+                    .labelLarge
+                    ?.copyWith(color: AppTheme.black)),
           ),
         ],
       ),

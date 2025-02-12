@@ -57,6 +57,7 @@ class BottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BottomNavigationBar(
+      backgroundColor: Theme.of(context).secondaryHeaderColor,
       onTap: (index) {
         onTap(index);
       },
@@ -81,7 +82,7 @@ class BottomNavBar extends StatelessWidget {
         ),
       ],
       selectedItemColor: AppTheme.primaryColor,
-      unselectedItemColor: AppTheme.lightGray,
+      unselectedItemColor: AppTheme.darkGray,
       showSelectedLabels: false,
       showUnselectedLabels: false,
     );
